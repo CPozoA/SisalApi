@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Sisal.Application/Sisal.Application.csproj" />
+  <Project Path="Sisal.Domain/Sisal.Domain.csproj" />
+  <Project Path="SiSal.Infrastructure/SiSal.Infrastructure.csproj" />
+  <Project Path="SiSal/SiSal.API.csproj" />
+</Solution>

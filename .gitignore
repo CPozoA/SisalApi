@@ -1,0 +1,19 @@
+# Compilados de .NET (se regeneran al compilar)
+bin/
+obj/
+
+# Visual Studio (preferencias y archivos de tu máquina)
+.vs/
+*.user
+*.suo
+
+# Rider / VS Code (opcional, según el editor)
+.idea/
+.vscode/
+
+# Logs de Serilog
+logs/
+
+# Configuración local con secretos (si llegas a usarla)
+appsettings.*.local.json
+*.env
