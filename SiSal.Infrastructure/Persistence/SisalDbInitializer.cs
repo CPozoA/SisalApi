@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Sisal.Application.Common;
 using Sisal.Application.Common.Interfaces;
 using Sisal.Domain.Entities;
 using Sisal.Domain.Enums;
@@ -8,8 +9,7 @@ namespace SiSal.Infrastructure.Persistence
 {
     public class SisalDbInitializer(SisalDbContext context, IPasswordHasher passwordHasher, ILogger<SisalDbInitializer> logger)
     {
-        public const string ClavePorDefecto = "Sisal2027!";
-
+        
         public async Task InitialiseAsync()
         {
             try
@@ -62,7 +62,7 @@ namespace SiSal.Infrastructure.Persistence
                 Nombres = "SISAL",
                 OficinaId = oficinaAdmin.Id,
                 TipoEmpleado = TipoEmpleado.F4,
-                PasswordHash = passwordHasher.Hash(ClavePorDefecto),
+                PasswordHash = passwordHasher.Hash(AuthDefaults.ClavePorDefecto),
                 DebeCambiarClave = true,
                 Activo = true,
                 CreatedAtUtc = now

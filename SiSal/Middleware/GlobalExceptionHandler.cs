@@ -21,13 +21,19 @@ namespace SiSal.API.Middleware
                 _ => (StatusCodes.Status500InternalServerError, "Error interno del servidor")
             };
 
+            var detail = exception switch
+            {
+                ValidationException validation => string.Join("; ", validation.Errors.Select(e => e.ErrorMessage)),
+                UnauthorizedAccessException => exception.Message,
+                KeyNotFoundException => exception.Message,
+                _ => null   // En errores 500 no exponemos el mensaje interno
+            };
+
             var problem = new ProblemDetails
             {
                 Status = status,
                 Title = title,
-                Detail = exception is ValidationException validation
-                    ? string.Join("; ", validation.Errors.Select(e => e.ErrorMessage))
-                    : null
+                Detail = detail
             };
 
             httpContext.Response.StatusCode = status;

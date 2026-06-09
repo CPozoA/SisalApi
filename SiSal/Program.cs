@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using Serilog;
 using Sisal.Application;
 using Sisal.Application.Common.Interfaces;
 using Sisal.Application.Common.Models;
+using Sisal.Domain.Enums;
+using SiSal.API.Authorization;
 using SiSal.API.Identity;
 using SiSal.API.Middleware;
 using SiSal.API.OpenApi;
@@ -42,7 +45,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    foreach (var privilegio in Enum.GetValues<TipoPrivilegio>())
+    {
+        options.AddPolicy(privilegio.ToString(), policy =>
+            policy.RequireAuthenticatedUser()
+                  .AddRequirements(new PrivilegioRequirement(privilegio)));
+    }
+});
+
+builder.Services.AddScoped<IAuthorizationHandler, PrivilegioAuthorizationHandler>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 

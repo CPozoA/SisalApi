@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Sisal.Application.Common.Messaging
+﻿namespace Sisal.Application.Common.Messaging
 {
     public interface ICommand<TResult>;
 
