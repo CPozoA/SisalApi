@@ -17,6 +17,8 @@ namespace SiSal.Infrastructure.Persistence
 
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
+        public DbSet<TipoPermiso> TiposPermiso => Set<TipoPermiso>();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

@@ -14,6 +14,8 @@ namespace Sisal.Application.Common.Interfaces
 
         DbSet<RefreshToken> RefreshTokens { get; }
 
+        DbSet<TipoPermiso> TiposPermiso { get; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
