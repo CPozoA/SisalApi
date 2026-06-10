@@ -2,6 +2,7 @@
 using FluentValidation.Results;
 using Sisal.Application.Common.Interfaces;
 using Sisal.Application.Common.Messaging;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sisal.Application.TiposPermiso
 {

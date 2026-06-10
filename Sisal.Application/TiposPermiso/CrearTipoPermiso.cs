@@ -3,6 +3,8 @@ using FluentValidation.Results;
 using Sisal.Application.Common.Interfaces;
 using Sisal.Application.Common.Messaging;
 using Sisal.Application.TiposPermiso.Common;
+using Microsoft.EntityFrameworkCore;
+using Sisal.Domain.Entities;
 
 namespace Sisal.Application.TiposPermiso
 {

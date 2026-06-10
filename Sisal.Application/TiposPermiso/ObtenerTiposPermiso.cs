@@ -1,6 +1,7 @@
 ﻿using Sisal.Application.Common.Interfaces;
 using Sisal.Application.Common.Messaging;
 using Sisal.Application.TiposPermiso.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sisal.Application.TiposPermiso
 {

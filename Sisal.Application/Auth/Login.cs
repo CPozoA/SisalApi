@@ -14,8 +14,8 @@ namespace Sisal.Application.Auth
     {
         public LoginCommandValidator()
         {
-            RuleFor(x => x.Dni).NotEmpty().MaximumLength(8);
-            RuleFor(x => x.Password).NotEmpty();
+            RuleFor(x => x.Dni).MaximumLength(8).NotEmpty().WithMessage("El DNI es obligatorio.");
+            RuleFor(x => x.Password).NotEmpty().WithMessage("La contraseña es obligatoria.");
         }
     }
 
