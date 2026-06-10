@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Sisal.Application.Common.Interfaces;
 using Sisal.Application.Common.Messaging;
+using Sisal.Application.Common.Services;
 using System.Reflection;
 
 namespace Sisal.Application
@@ -23,6 +25,8 @@ namespace Sisal.Application
                     services.AddScoped(contract, type);
                 }
             }
+
+            services.AddScoped<IUsuarioActualPrivilegios, UsuarioActualPrivilegios>();
 
             return services;
         }
