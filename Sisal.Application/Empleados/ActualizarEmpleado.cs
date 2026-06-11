@@ -32,6 +32,10 @@ namespace Sisal.Application.Empleados
                 .When(x => !string.IsNullOrWhiteSpace(x.Correo));
             RuleFor(x => x.TipoEmpleado).IsInEnum().WithMessage("El tipo de empleado no es válido.");
             RuleFor(x => x.OficinaId).GreaterThan(0).WithMessage("Debe indicar una oficina.");
+            RuleFor(x => x.JefeInmediatoId)
+                .NotNull()
+                .When(x => x.TipoEmpleado != TipoEmpleado.F4)
+                .WithMessage("Solo la Dirección General (F4) puede no tener jefe inmediato; los demás empleados deben tener uno.");
         }
     }
 
@@ -53,6 +57,10 @@ namespace Sisal.Application.Empleados
 
                 if (!await db.Empleados.AnyAsync(e => e.Id == jefeId, cancellationToken))
                     throw Invalido(nameof(command.JefeInmediatoId), "El jefe inmediato indicado no existe.");
+
+                if (await GeneraCiclo(command.Id, jefeId, cancellationToken))
+                    throw Invalido(nameof(command.JefeInmediatoId),
+                        "Ese jefe generaría un ciclo en la jerarquía (es subordinado, directo o indirecto, de este empleado).");
             }
 
             empleado.ApellidoPaterno = command.ApellidoPaterno.Trim();
@@ -69,6 +77,28 @@ namespace Sisal.Application.Empleados
         }
 
         private static ValidationException Invalido(string propiedad, string mensaje)
-            => new([new ValidationFailure(propiedad, mensaje)]);
+        {
+            return new([new ValidationFailure(propiedad, mensaje)]);
+        }
+            
+
+        private async Task<bool> GeneraCiclo(int empleadoId, int jefePropuestoId, CancellationToken cancellationToken)
+        {
+            var visitados = new HashSet<int>();
+            int? actual = jefePropuestoId;
+
+            while (actual is int id)
+            {
+                if (id == empleadoId) return true;        // el empleado aparece en la cadena → ciclo
+                if (!visitados.Add(id)) break;            // datos ya inconsistentes → corta, evita bucle infinito
+
+                actual = await db.Empleados
+                    .Where(e => e.Id == id)
+                    .Select(e => e.JefeInmediatoId)
+                    .FirstOrDefaultAsync(cancellationToken);
+            }
+
+            return false;
+        }
     }
 }

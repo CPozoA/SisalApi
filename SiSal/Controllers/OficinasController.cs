@@ -76,5 +76,22 @@ namespace SiSal.API.Controllers
             await dispatcher.Send(command, cancellationToken);
             return NoContent();
         }
+
+
+        /// <summary>Asigna o quita el jefe (responsable administrativo) de una oficina. Solo administradores.</summary>
+        [HttpPut("{id:int}/jefe")]
+        [Authorize(Policy = "Administrador")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType<ProblemDetails>(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> AsignarJefe(int id, AsignarJefeOficinaCommand command, CancellationToken cancellationToken)
+        {
+            if (id != command.OficinaId)
+                return BadRequest("El id de la ruta no coincide con el del cuerpo.");
+
+            await dispatcher.Send(command, cancellationToken);
+            return NoContent();
+        }
     }
 }

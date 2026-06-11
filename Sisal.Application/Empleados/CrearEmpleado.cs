@@ -40,6 +40,10 @@ namespace Sisal.Application.Empleados
 
             RuleFor(x => x.TipoEmpleado).IsInEnum().WithMessage("El tipo de empleado no es válido.");
             RuleFor(x => x.OficinaId).GreaterThan(0).WithMessage("Debe indicar una oficina.");
+            RuleFor(x => x.JefeInmediatoId)
+                .NotNull()
+                .When(x => x.TipoEmpleado != TipoEmpleado.F4)
+                .WithMessage("Solo la Dirección General (F4) puede no tener jefe inmediato; los demás empleados deben tener uno.");
         }
     }
 
