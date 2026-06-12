@@ -16,6 +16,8 @@ namespace Sisal.Application.Common.Interfaces
 
         DbSet<TipoPermiso> TiposPermiso { get; }
 
+        DbSet<Vehiculo> Vehiculos { get; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

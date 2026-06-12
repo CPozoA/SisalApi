@@ -19,6 +19,8 @@ namespace SiSal.Infrastructure.Persistence
 
         public DbSet<TipoPermiso> TiposPermiso => Set<TipoPermiso>();
 
+        public DbSet<Vehiculo> Vehiculos => Set<Vehiculo>();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
