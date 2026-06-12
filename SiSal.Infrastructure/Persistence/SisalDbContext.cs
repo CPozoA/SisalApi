@@ -21,6 +21,8 @@ namespace SiSal.Infrastructure.Persistence
 
         public DbSet<Vehiculo> Vehiculos => Set<Vehiculo>();
 
+        public DbSet<Delegacion> Delegaciones => Set<Delegacion>();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

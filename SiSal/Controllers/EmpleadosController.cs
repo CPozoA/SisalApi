@@ -11,18 +11,25 @@ namespace SiSal.API.Controllers
     [Authorize(Policy = "Administrador")]
     public sealed class EmpleadosController(IDispatcher dispatcher) : ControllerBase
     {
+
         /// <summary>Lista los empleados. Filtra por oficina con oficinaId; incluye inactivos con incluirInactivos=true.</summary>
         [HttpGet]
         [ProducesResponseType<IReadOnlyList<EmpleadoDto>>(StatusCodes.Status200OK)]
         public async Task<IActionResult> Listar([FromQuery] int? oficinaId, [FromQuery] bool incluirInactivos, CancellationToken cancellationToken)
-            => Ok(await dispatcher.Query(new ObtenerEmpleadosQuery(oficinaId, incluirInactivos), cancellationToken));
+        {
+            return Ok(await dispatcher.Query(new ObtenerEmpleadosQuery(oficinaId, incluirInactivos), cancellationToken));
+        }
+
 
         /// <summary>Obtiene un empleado por su identificador.</summary>
         [HttpGet("{id:int}")]
         [ProducesResponseType<EmpleadoDto>(StatusCodes.Status200OK)]
         [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ObtenerPorId(int id, CancellationToken cancellationToken)
-            => Ok(await dispatcher.Query(new ObtenerEmpleadoPorIdQuery(id), cancellationToken));
+        {
+            return Ok(await dispatcher.Query(new ObtenerEmpleadoPorIdQuery(id), cancellationToken));
+        }
+
 
         /// <summary>Crea un empleado con la clave por defecto del sistema.</summary>
         [HttpPost]
@@ -34,6 +41,7 @@ namespace SiSal.API.Controllers
             var empleado = await dispatcher.Send(command, cancellationToken);
             return CreatedAtAction(nameof(ObtenerPorId), new { id = empleado.Id }, empleado);
         }
+
 
         /// <summary>Actualiza los datos de un empleado.</summary>
         [HttpPut("{id:int}")]
@@ -48,6 +56,7 @@ namespace SiSal.API.Controllers
             await dispatcher.Send(command, cancellationToken);
             return NoContent();
         }
+
 
         /// <summary>Activa o desactiva un empleado.</summary>
         [HttpPatch("{id:int}/estado")]

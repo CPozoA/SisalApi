@@ -18,6 +18,8 @@ namespace Sisal.Application.Common.Interfaces
 
         DbSet<Vehiculo> Vehiculos { get; }
 
+        DbSet<Delegacion> Delegaciones { get; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
