@@ -21,5 +21,15 @@ namespace Sisal.Application.Common.Services
                      (p.Privilegio == privilegio || p.Privilegio == TipoPrivilegio.Administrador),
                 cancellationToken);
         }
+
+        public async Task<bool> TienePrivilegioExactoAsync(TipoPrivilegio privilegio, CancellationToken cancellationToken = default)
+        {
+            var empleadoId = usuario.EmpleadoId;
+            if (empleadoId is null) return false;
+
+            return await db.Privilegios.AnyAsync(
+                p => p.EmpleadoId == empleadoId && p.Activo && p.Privilegio == privilegio,
+                cancellationToken);
+        }
     }
 }

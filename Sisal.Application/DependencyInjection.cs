@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Sisal.Application.Common.Interfaces;
 using Sisal.Application.Common.Messaging;
 using Sisal.Application.Common.Services;
+using Sisal.Application.Solicitudes.Common;
 using System.Reflection;
 
 namespace Sisal.Application
@@ -27,6 +28,8 @@ namespace Sisal.Application
             }
 
             services.AddScoped<IUsuarioActualPrivilegios, UsuarioActualPrivilegios>();
+
+            services.AddScoped<IVisibilidadSolicitud, VisibilidadSolicitud>();
 
             return services;
         }

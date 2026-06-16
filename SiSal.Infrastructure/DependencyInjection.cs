@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Sisal.Application.Common.Interfaces;
 using Sisal.Application.Common.Models;
 using Sisal.Application.Identity;
+using SiSal.Infrastructure.almacenamiento;
+using SiSal.Infrastructure.BackgroundServices;
 using SiSal.Infrastructure.Identity;
 using SiSal.Infrastructure.Persistence;
 using SiSal.Infrastructure.Persistence.Interceptors;
@@ -34,6 +36,10 @@ namespace SiSal.Infrastructure
 
             services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+
+            services.AddSingleton<IAlmacenArchivos, AlmacenArchivosLocal>();
+
+            services.AddHostedService<CaducidadBackgroundService>();
 
             return services;
         }

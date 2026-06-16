@@ -23,6 +23,12 @@ namespace SiSal.Infrastructure.Persistence
 
         public DbSet<Delegacion> Delegaciones => Set<Delegacion>();
 
+        public DbSet<SolicitudSalida> SolicitudesSalida => Set<SolicitudSalida>();
+
+        public DbSet<HistorialEstado> HistorialEstados => Set<HistorialEstado>();
+
+        public DbSet<AnexoArchivo> AnexosArchivo => Set<AnexoArchivo>();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

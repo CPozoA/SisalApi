@@ -20,6 +20,12 @@ namespace Sisal.Application.Common.Interfaces
 
         DbSet<Delegacion> Delegaciones { get; }
 
+        DbSet<SolicitudSalida> SolicitudesSalida { get; }
+
+        DbSet<HistorialEstado> HistorialEstados { get; }
+
+        DbSet<AnexoArchivo> AnexosArchivo { get; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

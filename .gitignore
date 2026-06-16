@@ -17,3 +17,6 @@ logs/
 # Configuración local con secretos (si llegas a usarla)
 appsettings.*.local.json
 *.env
+
+# Archivos de anexo
+anexos/
